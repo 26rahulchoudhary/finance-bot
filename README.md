@@ -1,11 +1,11 @@
 # AI Finance Bot
 
-An AI-powered bot that evaluates whether a company is worth investing in based on its fundamental financial data.
+An AI-powered bot that evaluates whether a company is worth investing in based on its fundamental financial data, focusing on Indian companies listed on NSE and BSE.
 
 ## Features
 
-- Fetches fundamental data (P/E ratio, ROE, debt-to-equity, etc.) using yfinance.
-- Trains a machine learning model (Random Forest) on historical data to predict investment worth.
+- Fetches fundamental data (P/E ratio, ROE, debt-to-equity, etc.) using yfinance for Indian stocks (e.g., RELIANCE.NS).
+- Trains a machine learning model (Random Forest) on sample data to predict investment worth.
 - Evaluates new companies and provides recommendations.
 
 ## Setup
@@ -18,8 +18,8 @@ An AI-powered bot that evaluates whether a company is worth investing in based o
 
 ## Usage
 
-- The script collects sample data for a list of tickers, trains the model, and evaluates a specific ticker.
-- Modify the tickers list in `main.py` to include more companies for training.
+- The script collects sample data for a list of Indian tickers, trains the model, and evaluates a specific ticker.
+- Modify the tickers list in `main.py` to include more NSE/BSE companies (use .NS for NSE, .BO for BSE).
 - Use `evaluate_investment(ticker)` to check a new company.
 
 ## Project Structure
@@ -37,6 +37,7 @@ An AI-powered bot that evaluates whether a company is worth investing in based o
 - pandas: For data manipulation.
 - scikit-learn: For machine learning model.
 - numpy: For numerical operations.
+- matplotlib: For potential visualizations.
 
 ## Future Improvements
 

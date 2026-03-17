@@ -98,10 +98,10 @@ def collect_sample_data(tickers, output_path='data/fundamentals.csv'):
     print(f"Data saved to {output_path}")
 
 if __name__ == "__main__":
-    # Example tickers
-    tickers = ["AAPL", "GOOGL", "MSFT", "TSLA", "AMZN", "NVDA", "META", "NFLX", "BABA", "ORCL"]
+    # Example tickers for Indian companies on NSE (use .NS) or BSE (use .BO)
+    tickers = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "ICICIBANK.NS", "INFY.NS", "HINDUNILVR.NS", "ITC.NS", "KOTAKBANK.NS", "LT.NS", "BAJFINANCE.NS"]
     collect_sample_data(tickers)
     train_model()
-    ticker = "AAPL"
+    ticker = "RELIANCE.NS"
     result = evaluate_investment(ticker)
     print(f"{ticker}: {result}")
