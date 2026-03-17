@@ -112,14 +112,3 @@ if __name__ == "__main__":
     print('Data:', result.get('data'))
     print('Insights:', result.get('insights'))
     print('Summary:', result.get('summary'))
-
-    # # Collect sample data for training
-    # tickers = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "ICICIBANK.NS", "INFY.NS", "HINDUNILVR.NS", "ITC.NS", "KOTAKBANK.NS", "LT.NS", "BAJFINANCE.NS"]
-    # collect_sample_data(tickers)
-    #
-    # # Train the model
-    # train_model()
-    #
-    # # Evaluate the input ticker
-    # result = evaluate_investment(ticker)
-    # print(f"{ticker}: {result}")
