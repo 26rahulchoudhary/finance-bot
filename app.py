@@ -50,7 +50,7 @@ def safe_format(num):
 # -------------------------------
 # Sidebar
 # -------------------------------
-st.sidebar.title("⚙️ Settings")
+st.sidebar.title("Settings")
 
 period = st.sidebar.selectbox(
     "Select Time Period",
@@ -61,7 +61,7 @@ period = st.sidebar.selectbox(
 # -------------------------------
 # Title
 # -------------------------------
-st.title("📈 AI Fundamental Stock Analyzer")
+st.title("AI Fundamental Stock Analyzer")
 
 # -------------------------------
 # Input
@@ -87,7 +87,7 @@ if analyze and ticker:
             # -------------------------------
             # Tabs
             # -------------------------------
-            tab1, tab2 = st.tabs(["📊 Overview", "📄 AI Analysis"])
+            tab1, tab2 = st.tabs(["Overview", "AI Analysis"])
 
             # ===============================
             # TAB 1: OVERVIEW
@@ -95,15 +95,15 @@ if analyze and ticker:
             with tab1:
 
                 # Metrics
-                st.subheader("📊 Key Metrics")
+                st.subheader("Key Metrics")
 
                 col1, col2, col3, col4 = st.columns(4)
 
-                col1.metric("💰 Price", safe_format(data_block.get("price")))
-                col2.metric("📈 P/E Ratio", data_block.get("pe_ratio", "N/A"))
-                col3.metric("🏦 Market Cap", safe_format(data_block.get("market_cap")))
+                col1.metric("Price", safe_format(data_block.get("price")))
+                col2.metric("P/E Ratio", data_block.get("pe_ratio", "N/A"))
+                col3.metric("Market Cap", safe_format(data_block.get("market_cap")))
                 col4.metric(
-                    "📊 ROE",
+                    "ROE",
                     f"{(data_block.get('roe') or 0)*100:.2f}%" if data_block.get("roe") else "N/A"
                 )
 
@@ -123,7 +123,7 @@ if analyze and ticker:
                 ))
 
                 fig.update_layout(
-                    title="📈 Stock Price",
+                    title="Stock Price",
                     xaxis_title="Date",
                     yaxis_title="Price",
                     template="plotly_dark"
@@ -137,7 +137,7 @@ if analyze and ticker:
             with tab2:
 
                 # Insights
-                st.subheader("🧠 Insights")
+                st.subheader("Insights")
 
                 for insight in data.get("insights", []):
                     st.success(insight)
@@ -145,12 +145,12 @@ if analyze and ticker:
                 # Score
                 score = min(len(data.get("insights", [])) * 2, 10)
 
-                st.subheader("⭐ Fundamental Score")
+                st.subheader("Fundamental Score")
                 st.progress(score / 10)
                 st.markdown(f"### {score}/10")
 
                 # Summary
-                st.subheader("📄 AI Summary")
+                st.subheader("AI Summary")
 
                 st.markdown(f"""
                 <div style="background-color:#1e1e1e;padding:15px;border-radius:10px">
