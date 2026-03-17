@@ -26,6 +26,8 @@ def get_fundamentals(ticker):
         'totalRevenue': info.get('totalRevenue'),
         'netIncome': info.get('netIncome'),
         'freeCashflow': info.get('freeCashflow'),
+        'bookValue': info.get('bookValue'),
+        'currentPrice': info.get('currentPrice'),
     }
     return fundamentals
 
