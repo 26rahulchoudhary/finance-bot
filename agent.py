@@ -1,6 +1,6 @@
-from langchain_openai import ChatOpenAI
-from data_fetcher import get_stock_data
-from analysis import analyze_fundamentals
+from langchain_groq import ChatGroq
+from data_fetcher import fetch_fundamentals
+from analysis import generate_insights
 import os
 from dotenv import load_dotenv
 from typing import Dict
@@ -9,10 +9,10 @@ from typing import Dict
 load_dotenv()
 
 # Initialize LLM
-llm = ChatOpenAI(
-    model="gpt-4o",
+llm = ChatGroq(
+    model="llama3-8b-8192",
     temperature=0.1,
-    openai_api_key=os.getenv("OPENAI_API_KEY")
+    groq_api_key=os.getenv("GROQ_API_KEY")
 )
 
 def analyze_stock_with_agent(ticker: str) -> Dict:
@@ -27,12 +27,12 @@ def analyze_stock_with_agent(ticker: str) -> Dict:
     """
     try:
         # Fetch data
-        data = get_stock_data(ticker)
+        data = fetch_fundamentals(ticker)
         if "error" in data:
             return {"error": data["error"]}
 
         # Generate insights
-        insights = analyze_fundamentals(data)
+        insights = generate_insights(data)
 
         # Use LLM to generate summary
         prompt_text = f"""
@@ -49,7 +49,12 @@ def analyze_stock_with_agent(ticker: str) -> Dict:
         - Final Summary
         """
 
-        summary = llm.invoke(prompt_text).content
+        # Use LLM to generate summary
+        try:
+            summary = llm.invoke(prompt_text).content
+        except Exception as e:
+            # Fallback for demo if API key is invalid
+            summary = f"Demo Summary for {ticker}: Based on the data, the stock shows {len(insights)} key insights. Please set a valid GROQ_API_KEY for full LLM explanation."
 
         return {
             "ticker": ticker,

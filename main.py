@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import pickle
 import os
+from agent import analyze_stock_with_agent
 
 def get_fundamentals(ticker):
     """
@@ -100,10 +101,25 @@ def collect_sample_data(tickers, output_path='data/fundamentals.csv'):
     print(f"Data saved to {output_path}")
 
 if __name__ == "__main__":
-    # Example tickers for Indian companies on NSE (use .NS) or BSE (use .BO)
-    tickers = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "ICICIBANK.NS", "INFY.NS", "HINDUNILVR.NS", "ITC.NS", "KOTAKBANK.NS", "LT.NS", "BAJFINANCE.NS"]
-    collect_sample_data(tickers)
-    train_model()
-    ticker = "RELIANCE.NS"
-    result = evaluate_investment(ticker)
-    print(f"{ticker}: {result}")
+    # Ask user for stock ticker input
+    ticker = input("Enter the stock ticker (e.g., TCS.NS, AAPL): ").strip().upper()
+    if not ticker:
+        print("No ticker provided. Exiting.")
+        exit(1)
+
+    result = analyze_stock_with_agent(ticker)
+    print('Ticker:', result.get('ticker'))
+    print('Data:', result.get('data'))
+    print('Insights:', result.get('insights'))
+    print('Summary:', result.get('summary'))
+
+    # # Collect sample data for training
+    # tickers = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "ICICIBANK.NS", "INFY.NS", "HINDUNILVR.NS", "ITC.NS", "KOTAKBANK.NS", "LT.NS", "BAJFINANCE.NS"]
+    # collect_sample_data(tickers)
+    #
+    # # Train the model
+    # train_model()
+    #
+    # # Evaluate the input ticker
+    # result = evaluate_investment(ticker)
+    # print(f"{ticker}: {result}")

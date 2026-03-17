@@ -69,8 +69,59 @@ def analyze_fundamentals(data: Dict) -> List[str]:
     return insights
 
 # Standalone function
-def generate_insights(data: Dict) -> List[str]:
-    """
-    Standalone function for analysis.
-    """
-    return analyze_fundamentals(data)
+def generate_insights(data):
+    insights = []
+
+    # Valuation analysis
+    pe = data.get('PE')
+    if pe is not None:
+        if pe < 15:
+            insights.append("Stock appears potentially undervalued (low P/E ratio)")
+        elif pe > 25:
+            insights.append("Stock appears potentially overvalued (high P/E ratio)")
+        else:
+            insights.append("P/E ratio is in a reasonable range")
+
+    # Profitability analysis
+    roe = data.get('ROE%')
+    if roe is not None:
+        if roe > 15:
+            insights.append("Company shows strong profitability (high ROE)")
+        elif roe < 5:
+            insights.append("Company profitability is concerning (low ROE)")
+        else:
+            insights.append("Profitability is moderate")
+
+    # Growth analysis
+    revenue = data.get('REVENUE_RAW')  # use raw value
+    if revenue is not None:
+        if revenue > 1e9:
+            insights.append("Company has significant revenue scale")
+        else:
+            insights.append("Revenue is modest")
+
+    # Market cap insight
+    market_cap = data.get('MARKET_CAP_RAW')  # use raw value
+    if market_cap is not None:
+        if market_cap > 1e11:
+            insights.append("Large-cap company with stability")
+        elif market_cap < 1e9:
+            insights.append("Small-cap company with growth potential")
+
+    # EPS insight
+    eps = data.get('EPS')
+    if eps is not None:
+        if eps > 0:
+            insights.append("Positive earnings per share")
+        elif eps < 0:
+            insights.append("Negative earnings per share (potential concern)")
+
+    # Profit margin
+    margin = data.get('PROFIT%')
+    if margin is not None:
+        if margin > 10:   # since you multiplied by 100 earlier
+            insights.append("Strong profit margins")
+        elif margin < 5:
+            insights.append("Thin profit margins")
+
+    return insights
