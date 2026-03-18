@@ -93,18 +93,107 @@ if analyze and ticker:
             # TAB 1: OVERVIEW
             # ===============================
             with tab1:
-
-                # Metrics
+                company_name = data_block.get("NAME", "Unknown Company")
+                ticker = data_block.get("TICKER", "")
+                st.subheader(f"{company_name} ({ticker})")
                 st.subheader("Key Metrics")
 
+                # -------------------------------
+                # Row 1 → Core Snapshot
+                # -------------------------------
                 col1, col2, col3, col4 = st.columns(4)
 
-                col1.metric("Price", safe_format(data_block.get("price")))
-                col2.metric("P/E Ratio", data_block.get("pe_ratio", "N/A"))
-                col3.metric("Market Cap", safe_format(data_block.get("market_cap")))
+                col1.metric("Price", safe_format(data_block.get("CMP")))
+
+                col2.metric(
+                    "P/E Ratio",
+                    f"{data_block.get('PE'):.2f}" if data_block.get("PE") else "N/A"
+                )
+
+                col3.metric(
+                    "Market Cap",
+                    safe_format(data_block.get("MARKET_CAP"))
+                )
+
                 col4.metric(
                     "ROE",
-                    f"{(data_block.get('roe') or 0)*100:.2f}%" if data_block.get("roe") else "N/A"
+                    f"{data_block.get('ROE%'):.2f}%" if data_block.get("ROE%") else "N/A"
+                )
+
+                # -------------------------------
+                # Row 2 → Valuation + Profitability
+                # -------------------------------
+                col5, col6, col7, col8 = st.columns(4)
+
+                col5.metric(
+                    "EPS",
+                    f"{data_block.get('EPS'):.2f}" if data_block.get("EPS") else "N/A"
+                )
+
+                col6.metric(
+                    "Forward P/E",
+                    f"{data_block.get('forwardPE'):.2f}" if data_block.get("forwardPE") else "N/A"
+                )
+
+                col7.metric(
+                    "Profit Margin",
+                    f"{data_block.get('PROFIT%'):.2f}%" if data_block.get("PROFIT%") else "N/A"
+                )
+
+                col8.metric(
+                    "Operating Margin",
+                    f"{data_block.get('OPERATING_MARGIN%'):.2f}%" if data_block.get("OPERATING_MARGIN%") else "N/A"
+                )
+
+                # -------------------------------
+                # Row 3 → Growth + Efficiency
+                # -------------------------------
+                col9, col10, col11, col12 = st.columns(4)
+
+                col9.metric(
+                    "Revenue Growth",
+                    f"{data_block.get('REVENUE_GROWTH%'):.2f}%" if data_block.get("REVENUE_GROWTH%") else "N/A"
+                )
+
+                col10.metric(
+                    "Earnings Growth",
+                    f"{data_block.get('EARNINGS_GROWTH%'):.2f}%" if data_block.get("EARNINGS_GROWTH%") else "N/A"
+                )
+
+                col11.metric(
+                    "ROA",
+                    f"{data_block.get('ROA%'):.2f}%" if data_block.get("ROA%") else "N/A"
+                )
+
+                col12.metric(
+                    "PEG Ratio",
+                    f"{data_block.get('pegRatio'):.2f}" if data_block.get("pegRatio") else "N/A"
+                )
+
+                # -------------------------------
+                # Row 4 → Financial Health + Risk
+                # -------------------------------
+                col13, col14, col15, col16 = st.columns(4)
+
+                col13.metric(
+                    "Debt/Equity",
+                    f"{data_block.get('debtToEquity'):.2f}" if data_block.get("debtToEquity") else "N/A"
+                )
+
+                col14.metric(
+                    "Free Cash Flow",
+                    safe_format(data_block.get("freeCashflow"))
+                )
+
+                col15.metric(
+                    "Beta",
+                    f"{data_block.get('beta'):.2f}" if data_block.get("beta") else "N/A"
+                )
+
+                col16.metric(
+                    "52W Range",
+                    f"{safe_format(data_block.get('52W_LOW'))} - {safe_format(data_block.get('52W_HIGH'))}"
+                    if data_block.get("52W_LOW") and data_block.get("52W_HIGH") else "N/A"
                 )
 
                 # -------------------------------
